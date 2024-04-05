@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    //es6문법 -> promise()
+
+    //생성자 (  function ( 콜백function, 콜백function) )
+    let promise = new Promise( (resolve, reject) => {
+      //성공하면 resolve() 호출
+      //실패하면 reject() 호출
+
+      //어떤 작업을 하는데 3초가 걸렸음 -> 비동기적 콜백
+      setTimeout(() => {
+        resolve("success!")
+        //reject( new Error("error발생!") )
+      }, 3000)
+
+    })
+
+    //promise패턴 -> 
+    promise.then( (data) => {
+      console.log(data);
+    }).catch( e => {
+      console.log(e);
+    })
+
+    //promise패턴 체인 - return에 실어주면, 다시 then절로 받을 수 있음
+    promise
+    .then( (data) => data + 1 )
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => data + 1)
+    .then( data => console.log(data)  )
+
+
+
+
+
+  </script>
+
+</body>
+</html>

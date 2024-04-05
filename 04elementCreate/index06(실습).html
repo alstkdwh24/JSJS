@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>할일목록</h3>
+
+    <div class="box">
+        <h3 class="nameTitle" style="margin: 0;"></h3>
+
+        <input type="text" name="name" placeholder="이름을 입력하세요">
+        <button type="button" id="nameBtn">확인</button>
+        <br>
+
+        <input type="text" name="todo" placeholder="할일을 입력하세요">
+        <button type="button" id="todoBtn">확인</button>
+    </div>
+
+    <ul class="todoList">
+
+    </ul>
+
+    <script>
+        //name
+        var box = document.querySelector(".box");
+        var nameTitle = box.querySelector(".nameTitle");
+        var nameInput = box.querySelector("input[name=name]");
+        var nameBtn = box.querySelector("#nameBtn");
+
+        //todo
+        var todoInput = box.querySelector("input[name=todo]");
+        var todoBtn = box.querySelector("#todoBtn");
+
+        //todoList
+        var todoList = document.querySelector(".todoList");
+
+        nameBtn.addEventListener("click", function() {
+
+            nameTitle.innerHTML = nameInput.value + "님 안녕하세요";
+            nameInput.style.display = "none";
+            nameBtn.style.display = "none";
+        }) 
+
+        todoBtn.addEventListener("click", function() {
+
+            //사용자가 입력한 값
+            var text = todoInput.value; //변수에 저장
+            todoInput.value = "";
+
+            //button생성
+            var btn = document.createElement("button");
+            btn.innerHTML = "X";
+            btn.addEventListener('click', deleteTodo);
+            
+            //li생성
+            var li = document.createElement("li");
+            li.innerHTML = text;
+
+            li.appendChild(btn); //li에 버튼을 추가한다
+            todoList.appendChild(li); //todoList에 li를 추가한다.
+
+        });
+
+
+        function deleteTodo() {
+            //this.parentElement.remove(); //1st
+            event.target.parentElement.remove(); //2nd
+        }
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>

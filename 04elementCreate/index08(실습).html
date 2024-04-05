@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>할일목록</h3>
+
+    <div class="box">
+        <h3 class="nameTitle" style="margin: 0;"></h3>
+
+        <input type="text" name="name" placeholder="이름을 입력하세요">
+        <button type="button" id="nameBtn">확인</button>
+        <br>
+
+        <input type="text" name="todo" placeholder="할일을 입력하세요">
+        <button type="button" id="todoBtn">확인</button>
+    </div>
+
+    <button type="button" id="deleteBtn">전체삭제하기</button>
+
+
+    <ul class="todoList">
+
+    </ul>
+
+    <script>
+        //name
+        var box = document.querySelector(".box");
+        var nameTitle = box.querySelector(".nameTitle");
+        var nameInput = box.querySelector("input[name=name]");
+        var nameBtn = box.querySelector("#nameBtn");
+
+        //todo
+        var todoInput = box.querySelector("input[name=todo]");
+        var todoBtn = box.querySelector("#todoBtn");
+
+        //todoList
+        var todoList = document.querySelector(".todoList");
+
+        //deleteBtn
+        var deleteBtn = document.getElementById("deleteBtn");
+
+
+        nameBtn.addEventListener("click", function() {
+
+            nameTitle.innerHTML = nameInput.value + "님 안녕하세요";
+            nameInput.style.display = "none";
+            nameBtn.style.display = "none";
+        }) 
+
+        todoBtn.addEventListener("click", function() {
+
+            //사용자가 입력한 값
+            var text = todoInput.value; //변수에 저장
+            todoInput.value = "";
+
+            //button생성
+            var btn = document.createElement("button");
+            btn.innerHTML = "X";
+            btn.addEventListener('click', deleteTodo);
+
+            //button생성 (위로)
+            var btn2 = document.createElement("button");
+            btn2.innerHTML = "△";
+            btn2.addEventListener("click", up); 
+            //button생성 (아래로)
+            var btn3 = document.createElement("button");
+            btn3.innerHTML = "▽";
+            btn3.addEventListener("click", down); 
+
+            //li생성
+            var li = document.createElement("li");
+            li.innerHTML = text;
+
+            li.appendChild(btn); //li에 버튼을 추가한다
+            li.appendChild(btn2); //li에 위 버튼 추가
+            li.appendChild(btn3); //li에 아래버튼 추가
+            todoList.appendChild(li); //todoList에 li를 추가한다.
+
+        });
+
+        deleteBtn.addEventListener("click", function() {
+                        
+            if(confirm("정말 삭제하시겠습니까?\n삭제 후에는 복구가 불가능합니다")) {
+                //ul
+                //console.log( todoList.children );
+                // var x = todoList.children.length;
+                // for(var i = 0; i < x; i++) {
+                //     todoList.firstElementChild.remove();
+                // }
+                while(todoList.firstElementChild != null) {
+                    todoList.firstElementChild.remove();
+                }
+            }            
+
+        });
+
+
+        function deleteTodo() {
+            //this.parentElement.remove(); //1st
+            event.target.parentElement.remove(); //2nd
+        }
+
+        function up() {
+            var current = this.parentElement;
+            var prev = current.previousElementSibling;
+            if(prev == null) {
+                alert("첫번째 행입니다");
+                return;
+            }
+            todoList.insertBefore(current , prev); //이전 앞에다가 현재행을 옴긴다.
+
+        }
+
+        function down() {
+            var current = this.parentElement;
+            var next = current.nextElementSibling;
+            if(next == null) {
+                alert("마지막 행입니다");
+                return;
+            }
+            todoList.insertBefore(next , current); //현재행 앞에 다음행을 옴긴다.
+        }
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>
